@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root>
+  <intents>
+    <intent>book-flight</intent>
+    <examples>
+      <text>book a flight</text>
+    </examples>
+    <examples>
+      <text>I need to buy a ticket</text>
+    </examples>
+    <examples>
+      <text>I want to take an airplane ride</text>
+    </examples>
+    <examples>
+      <text>I want to take a trip</text>
+    </examples>
+    <description string="true"/>
+  </intents>
+  <intents>
+    <intent>check-flight-status</intent>
+    <examples>
+      <text>Can I check the status of AA 123</text>
+    </examples>
+    <examples>
+      <text>Is my flight delayed</text>
+    </examples>
+    <examples>
+      <text>What is the status of AA 456</text>
+    </examples>
+    <examples>
+      <text>What is the status of my flight</text>
+    </examples>
+    <examples>
+      <text>What time does my flight depart</text>
+    </examples>
+    <examples>
+      <text>When does AA 123 arrive</text>
+    </examples>
+    <examples>
+      <text>when does my flight land</text>
+    </examples>
+    <examples>
+      <text>Where is my flight</text>
+    </examples>
+    <description string="true"/>
+  </intents>
+  <entities>
+    <entity>airline</entity>
+    <values>
+      <type>synonyms</type>
+      <value>AA</value>
+      <synonyms>American Airlines</synonyms>
+      <synonyms>American Eagle</synonyms>
+    </values>
+    <values>
+      <type>synonyms</type>
+      <value>DL</value>
+      <synonyms array="true">Delta</synonyms>
+    </values>
+    <values>
+      <type>synonyms</type>
+      <value>NK</value>
+      <synonyms array="true">Spirit</synonyms>
+    </values>
+    <values>
+      <type>synonyms</type>
+      <value>UA</value>
+      <synonyms>United</synonyms>
+      <synonyms>United Airlines</synonyms>
+    </values>
+    <values>
+      <type>synonyms</type>
+      <value>VS</value>
+      <synonyms>Virgin</synonyms>
+      <synonyms>Virgin Atlantic</synonyms>
+    </values>
+    <values>
+      <type>synonyms</type>
+      <value>WN</value>
+      <synonyms array="true">Southwest</synonyms>
+    </values>
+    <fuzzy_match boolean="true">true</fuzzy_match>
+  </entities>
+  <entities>
+    <entity>airport</entity>
+    <values>
+      <type>synonyms</type>
+      <value>ATL</value>
+      <synonyms>Atlanta</synonyms>
+      <synonyms>Hartsfield-Jackson</synonyms>
+    </values>
+    <values>
+      <type>synonyms</type>
+      <value>AUS</value>
+      <synonyms>Austin</synonyms>
+      <synonyms>Austin Bergstrom</synonyms>
+    </values>
+    <values>
+      <type>synonyms</type>
+      <value>DAL</value>
+      <synonyms>Dallas Love Field</synonyms>
+      <synonyms>Love Field</synonyms>
+    </values>
+    <values>
+      <type>synonyms</type>
+      <value>DFW</value>
+      <synonyms>Dallas Fort Worth</synonyms>
+      <synonyms>DFW</synonyms>
+    </values>
+    <values>
+      <type>synonyms</type>
+      <value>LAX</value>
+      <synonyms>LAX</synonyms>
+      <synonyms>Los Angeles</synonyms>
+    </values>
+    <fuzzy_match boolean="true">true</fuzzy_match>
+  </entities>
+  <entities>
+    <entity>sys-number</entity>
+    <values empty-array="true"></values>
+    <fuzzy_match boolean="true">true</fuzzy_match>
+  </entities>
+  <metadata>
+    <api_version>
+      <major_version>v2</major_version>
+      <minor_version>2018-11-08</minor_version>
+    </api_version>
+  </metadata>
+  <webhooks array="true">
+    <url>https://us-south.functions.appdomain.cloud/api/v1/web/your-url-here.json</url>
+    <name>main_webhook</name>
+    <headers empty-array="true"></headers>
+  </webhooks>
+  <dialog_nodes>
+    <type>standard</type>
+    <title>Anything else</title>
+    <output>
+      <generic array="true">
+        <values>
+          <text>I didn't understand. You can try rephrasing.</text>
+        </values>
+        <values>
+          <text>Can you reword your statement? I'm not understanding.</text>
+        </values>
+        <values>
+          <text>I didn't get your meaning.</text>
+        </values>
+        <response_type>text</response_type>
+        <selection_policy>sequential</selection_policy>
+      </generic>
+    </output>
+    <conditions>anything_else</conditions>
+    <dialog_node>Anything else</dialog_node>
+    <previous_sibling>node_2_1578347066358</previous_sibling>
+    <disambiguation_opt_out boolean="true">true</disambiguation_opt_out>
+  </dialog_nodes>
+  <dialog_nodes>
+    <type>event_handler</type>
+    <output></output>
+    <parent>slot_1_1578503813667</parent>
+    <context>
+      <number>@sys-number</number>
+    </context>
+    <conditions>@sys-number</conditions>
+    <event_name>input</event_name>
+    <dialog_node>handler_3_1578503813672</dialog_node>
+  </dialog_nodes>
+  <dialog_nodes>
+    <type>event_handler</type>
+    <output></output>
+    <parent>slot_2_1578503800481</parent>
+    <context>
+      <airline>@airline</airline>
+    </context>
+    <conditions>@airline</conditions>
+    <event_name>input</event_name>
+    <dialog_node>handler_4_1578503800493</dialog_node>
+  </dialog_nodes>
+  <dialog_nodes>
+    <type>event_handler</type>
+    <output>
+      <generic array="true">
+        <values array="true">
+          <text>What is the flight number?</text>
+        </values>
+        <response_type>text</response_type>
+        <selection_policy>sequential</selection_policy>
+      </generic>
+    </output>
+    <parent>slot_1_1578503813667</parent>
+    <event_name>focus</event_name>
+    <dialog_node>handler_5_1578503813672</dialog_node>
+    <previous_sibling>handler_3_1578503813672</previous_sibling>
+  </dialog_nodes>
+  <dialog_nodes>
+    <type>event_handler</type>
+    <output>
+      <generic array="true">
+        <values array="true">
+          <text>What airline?</text>
+        </values>
+        <response_type>text</response_type>
+        <selection_policy>sequential</selection_policy>
+      </generic>
+    </output>
+    <parent>slot_2_1578503800481</parent>
+    <event_name>focus</event_name>
+    <dialog_node>handler_9_1578503800493</dialog_node>
+    <previous_sibling>handler_4_1578503800493</previous_sibling>
+  </dialog_nodes>
+  <dialog_nodes>
+    <type>standard</type>
+    <title>book-flight</title>
+    <output>
+      <generic array="true">
+        <values array="true">
+          <text>Which airline would you prefer?</text>
+        </values>
+        <response_type>text</response_type>
+        <selection_policy>sequential</selection_policy>
+      </generic>
+    </output>
+    <conditions>#book-flight</conditions>
+    <dialog_node>node_2_1578347066358</dialog_node>
+    <previous_sibling>node_6_1578503784131</previous_sibling>
+  </dialog_nodes>
+  <dialog_nodes>
+    <type>frame</type>
+    <title>check-flight-status</title>
+    <actions array="true">
+      <name>main_webhook</name>
+      <type>webhook</type>
+      <parameters>
+        <airline>$airline</airline>
+        <flightNumber>$number</flightNumber>
+      </parameters>
+      <result_variable>webhook_result_1</result_variable>
+    </actions>
+    <metadata>
+      <_customization>
+        <mcr boolean="true">true</mcr>
+      </_customization>
+    </metadata>
+    <conditions>#check-flight-status</conditions>
+    <dialog_node>node_6_1578503784131</dialog_node>
+    <previous_sibling>Welcome</previous_sibling>
+  </dialog_nodes>
+  <dialog_nodes>
+    <type>response_condition</type>
+    <output>
+      <text>
+        <values array="true">$webhook_result_1.message</values>
+        <selection_policy>sequential</selection_policy>
+      </text>
+    </output>
+    <parent>node_6_1578503784131</parent>
+    <conditions>$webhook_result_1.message</conditions>
+    <dialog_node>response_10_1642616790032</dialog_node>
+  </dialog_nodes>
+  <dialog_nodes>
+    <type>response_condition</type>
+    <output>
+      <text>
+        <values array="true">Sorry an error has occured </values>
+        <selection_policy>sequential</selection_policy>
+      </text>
+    </output>
+    <parent>node_6_1578503784131</parent>
+    <conditions>anything_else</conditions>
+    <dialog_node>response_8_1642616790428</dialog_node>
+    <previous_sibling>response_10_1642616790032</previous_sibling>
+  </dialog_nodes>
+  <dialog_nodes>
+    <type>slot</type>
+    <parent>node_6_1578503784131</parent>
+    <variable>$number</variable>
+    <dialog_node>slot_1_1578503813667</dialog_node>
+    <previous_sibling>slot_2_1578503800481</previous_sibling>
+  </dialog_nodes>
+  <dialog_nodes>
+    <type>slot</type>
+    <parent>node_6_1578503784131</parent>
+    <variable>$airline</variable>
+    <dialog_node>slot_2_1578503800481</dialog_node>
+    <previous_sibling>response_8_1642616790428</previous_sibling>
+  </dialog_nodes>
+  <dialog_nodes>
+    <type>standard</type>
+    <title>Welcome</title>
+    <output>
+      <generic array="true">
+        <values array="true">
+          <text>Hello. How can I help you?</text>
+        </values>
+        <response_type>text</response_type>
+        <selection_policy>sequential</selection_policy>
+      </generic>
+    </output>
+    <conditions>welcome</conditions>
+    <dialog_node>Welcome</dialog_node>
+  </dialog_nodes>
+  <counterexamples empty-array="true"></counterexamples>
+  <system_settings>
+    <off_topic>
+      <enabled boolean="true">true</enabled>
+    </off_topic>
+    <disambiguation>
+      <prompt>Did you mean:</prompt>
+      <enabled boolean="true">true</enabled>
+      <randomize boolean="true">true</randomize>
+      <max_suggestions number="true">5</max_suggestions>
+      <suggestion_text_policy>title</suggestion_text_policy>
+    </disambiguation>
+    <human_agent_assist>
+      <prompt>Did you mean:</prompt>
+    </human_agent_assist>
+    <spelling_auto_correct boolean="true">true</spelling_auto_correct>
+  </system_settings>
+  <learning_opt_out boolean="true">false</learning_opt_out>
+  <name>Webhook Demo - ML</name>
+  <language>en</language>
+  <description string="true"/>
+</root>
